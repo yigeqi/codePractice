@@ -1,0 +1,9 @@
+<script>标签的位置、defer、async、DOCTYPE属性
+
+js数据类型=5种基本数据类型 + 1种复杂数据类型
+（undefined,null,boolean,number,string） +  （object)
+
+检查数据类型typeof的返回值：“undefined”,"object","boolean","number","string","function"
+
+null == undefined  : true
+null === undefined : false
