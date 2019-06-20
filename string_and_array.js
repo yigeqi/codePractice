@@ -12,4 +12,31 @@ console.log(str+','+strReverse(str))
 function strReverse2(str){
   return str.split('').reverse().join('');
 }
-console.log(str+','+strReverse2(str))
+console.log(str+','+strReverse2(str));
+//去除数组中所有特定值的项
+var arr=['a','b','c','b','d'];
+for(var i=arr.length-1;i>=0;i--){
+  if(arr[i]==='b'){
+    arr.splice(i,1);
+  }
+}
+//not right if i begins from 0 to arr.length-1
+console.log(arr);
+var arr1=['a','b','c','b','d'];
+arr1=arr1.filter(function(i){return i!='b';})
+console.log(arr1);
+
+// once wrong
+var a={};
+a.c=[1,2,3];
+var b=a.c;
+b=b.filter(function(i){return i<3;});
+console.log(b,a.c); //waring:b=[1,2];a.c=[1,2,3]
+//array method of "add,delete,replace"
+var arr=['a','b','c'];
+arr.splice(1,0,'a1','a2');
+console.log(arr);
+arr.splice(1,2);
+console.log(arr);
+arr.splice(1,2,'a1','a2','a3');
+console.log(arr);
