@@ -176,12 +176,95 @@ var Event = (function(){
 
 console.log('\nexample of 实现可以先发布在订阅 和 创建事件名的命名空间。')
 /*
-1：上述观察者模式都是必须先订阅再发布才能收到消息，现实中有可能发布消息时还没来得及订阅。
-比如离线消息，这时需要在发布时若发现无人订阅，则先把此事件暂存起来，等有人订阅时在重新发布；
+1：上述观察者模式都是必须先订阅再发布才能收到消息，现实中可能是trigger()之后才listen()。
+比如请求响应返回的很快，立即运行了listen()，这时listen()相关的代码还没有加载好。
 2：由于全局共用对象Event中只有一个clients来保存事件名key，很容易导致事件名冲突，
-为此：为事件名创建命名空间
+为此：为事件名创建命名空间，使调用变成
+Event.create('namespace1').listen();
+Event.create('namespace1').trigger();
 */
+Event = (function(){
+  var clients={}; //{namespace1:{key1:[fn1_1,fn1_2],key2:[]},}
+  var donekeys={};//{namespace1:{key1:[arg1_1,arg1_2],key2:[]},}
+  var ns; //current namespace
+  var create = function(namespace){
+    ns = namespace;
+    return this;
+  };
+  var listen = function(key, fn){
+    // add fn to clients
+    if(!clients[ns]){
+      clients[ns]={};
+      clients[ns][key]=[fn]
+    }
+    else if(clients[ns]&&!clients[ns][key]){
+      clients[ns][key]=[fn];
+    }
+    else if(clients[ns]&&clients[ns][key]){
+      clients[ns][key].push(fn);
+    }
+    //check if key has been triggered before
+    if(donekeys[ns]&&donekeys[ns][key]){
+      donekeys[ns][key].forEach(function(item){
+        fn.apply(this,item);
+      })     
+    }
+  };
+  var remove = function(key,fn){
+    var c = clients[ns][key];
+    if(c&&fn){
+      for(var i=c.length;i>=0;i--){
+         clients[ns][key][i]===fn&&clients[ns][key].splice(i,1)
+      }
+    }
+    if(c&&!fn){
+      delete clients[ns][key]
+    }
+  }; 
+  var trigger = function(key){
+    var args = [].slice.call(arguments);
+    args.shift();
+    // add key and args to donekeys
+    if(!donekeys[ns]){
+      donekeys[ns]={};
+      donekeys[ns][key]=[args];
+    }
+    else if(donekeys[ns]&&!donekeys[ns][key]){
+      donekeys[ns][key]=[args];
+    }
+    else if(donekeys[ns]&&donekeys[ns][key]){
+      donekeys[ns][key].push(args);
+    }
+     
+    if(!clients[ns]||!clients[ns][key])
+      return false;
+    clients[ns][key].forEach(function(item){
+      item.apply(this,args);
+    })
+  };
+  return {
+  create:create,
+  listen:listen,
+  remove:remove,
+  trigger:trigger
+  }
+})()
+Event.create('namespace1').listen('key2',a=>console.log('the key2 params is:'+a));
+Event.create('namespace1').trigger('key2','aaa');
+Event.create('namespace1').trigger('key1','a');
+Event.create('namespace1').trigger('key1','b');
+Event.create('namespace1').listen('key1', fna=function(a){console.log('the key1 params is:'+a)});
+Event.create('namespace1').listen('key1', function(a){console.log('thsssssse key1 params is:'+a)});
+Event.create('namespace1').remove('key1',fna);
+Event.create('namespace1').trigger('key1','a');
 
-
+/*above is not right, 也可以不用命名空间，直接：Event.listen()，总体思路：
+用namespaceCache={namespace1:{listen,remove,trigger}}，不使用create是相对于执行了create('default'),
+每个namespace里:cache={key:[fn...]},offlineStack=[fn...]保存需要以后listen时再执行（即trigger）offlineStack(离线事件)，
+如果listen时在某个namespace的key上执行过离线事件，则设置offlineStack=null,这样再次trigger此事件时不再
+保存该离线事件。listen时若执行过某个key上的离线事件后，下次再listen相同的key时也会保存进cache，但不会被再次自动trigger。
+*/
+console.log('\nexample of  实现可以先发布在订阅 和 创建事件名的命名空间。')
+// to be done
 
 
