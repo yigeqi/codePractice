@@ -17,6 +17,12 @@ function test(m,n,l){
 test.myBind({a:11111},'s','b')(2); //'11111sb2'
 //函数柯里化
 console.log('example of curry() ')
+//add0(1)(2)=3;
+function add0(num){
+  return function(i){
+    return num+i;
+  }
+}
 /*
 实现一个add方法，使计算结果能够满足如下预期
 add(1,2)=3：

@@ -1,6 +1,6 @@
 //使字符串反转,the first function not good.
 console.log('example of 字符串反转');
-function strReverse(str){
+function strReverse1(str){
   var res='';
   for(var i=str.length-1;i>=0;i--){
     res+=str.charAt(i);
@@ -9,11 +9,15 @@ function strReverse(str){
 }
 //
 var str='hello world';
-console.log(str+','+strReverse(str))
+console.log(str+','+strReverse1(str))
 function strReverse2(str){
   return str.split('').reverse().join('');
 }
 console.log(str+','+strReverse2(str));
+//strReverse1和strReverse2就是命令式代码和声明式代码的区别了
+// 命令式代码的意思就是，我们通过编写一条又一条指令去让计算机执行一些动作，这其中一般都会涉及到很多繁杂的细节，
+// 会引入一些转瞬即逝的中间变量。
+// 而声明式就要优雅很多了，我们通过写表达式的方式来声明我们想干什么，而不是通过一步一步的指示。
 
 //去除数组中所有特定值的项
 console.log('\n example of 去除数组中所有特定值的项')
@@ -47,4 +51,34 @@ console.log(arr);
 arr.splice(1,2,'a1','a2','a3');
 console.log(arr);
 
-console.log('\n example of special "let"')
+//
+console.log('\n add or change a property of an object');
+//mySetObj({a:1,b:{b1:2}},{b:{b1:3,b2:4}})={a:1,b:{b1:2,b2:4}}
+function mySetObj(obj,sorce){
+	Object.keys(obj).map(name=>{
+	  if(sorce[name]===undefined||Object.getPrototypeOf(obj[name])!==Object.prototype){
+	    sorce[name]=obj[name];
+	  }else{
+	    mySetObj(obj[name],sorce[name]);
+	  }
+	})   
+	return sorce;
+}
+console.log(mySetObj({a:1,b:{b1:2},c:[1]},{b:{b1:3,b2:4},c:{c1:1}}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
