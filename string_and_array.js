@@ -1,3 +1,14 @@
+console.log('example of multiply of array');
+//var a=[1,2,3,4];a.multi();console.log(a);//[1,2,3,4,1,4,9,16]
+Array.prototype.multi=function(){
+  var m = this.map(a=>a*a);
+  [].push.apply(this,m);
+  return this;
+}
+var a=[1,2,3,4];
+a.multi();
+console.log(a);
+
 //使字符串反转,the first function not good.
 console.log('example of 字符串反转');
 function strReverse1(str){
