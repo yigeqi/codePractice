@@ -10,8 +10,9 @@ document.getElementById('innermost').addEventListener('click',function(e){
 document.getElementById('outer').addEventListener('click',function(e){
   console.log('hello '+e.currentTarget.id);
 });
-//模块间通信
+
 (function(){
+	//模块间通信
 	//a模块负责trigger，并传参：记录点击次数
 	var a =(function(){
 		var i=0;
@@ -27,4 +28,20 @@ document.getElementById('outer').addEventListener('click',function(e){
 			show_count.replaceChild(document.createTextNode(i+''),show_count.firstChild);
 		})
 	})()
+
+	/////////////////
+	console.log('\n example of 使用promise异步加载图片。')
+	function asyncLoadImg(url){
+	  return new Promise((resolve,reject)=>{
+	    var img = new Image();
+	    img.onload=()=>resolve(img);
+	    img.onerror=(msg)=>reject(new Error(`failed to load img:${msg}`));
+	    img.src=url;
+	  })
+	}
+	var imgurl1='https://img.alicdn.com/tfs/TB11CSkaMFY.1VjSZFnXXcFHXXa-990-550.jpg_1080x1800Q90s50.jpg';
+	asyncLoadImg(imgurl1)
+	.then(img=>{console.log(img);document.getElementById('imgContainer1').appendChild(img);},b=>console.log(b));
+	console.log('do sth befor img loader.');
+
 })()
