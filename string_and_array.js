@@ -1,4 +1,16 @@
-console.log('example of multiply of array');
+console.log('\n数组和字符串去重')
+function delDup(tar){
+  if(typeof tar==='string'){
+		return [...new Set([...tar])].join('');
+	}
+	if(tar instanceof Array){
+		return [...new Set(tar)];
+	}
+	return tar
+}
+
+//
+console.log('\nexample of multiply of array');
 //var a=[1,2,3,4];a.multi();console.log(a);//[1,2,3,4,1,4,9,16]
 Array.prototype.multi=function(){
   var m = this.map(a=>a*a);

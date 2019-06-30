@@ -1,4 +1,14 @@
 
+//解构赋值
+/*let [head, ...tail] = [1, 2, 3, 4];
+head // 1
+tail // [2, 3, 4]
+
+let [x, y, ...z] = ['a'];
+x // "a"
+y // undefined
+z // []
+ */
 /*Promise 对象
 1. Promise 有几种状态？Promise 的特点是什么，分别有什么优缺点？
 2. Promise 构造函数是同步还是异步执行？then 呢？Promise 如何实现 then 处理？
