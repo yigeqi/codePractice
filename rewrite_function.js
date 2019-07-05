@@ -33,21 +33,18 @@ add(1)(2)(3)(4) = 10
 function add(){
   var argsArr = [].slice.call(arguments);
   var adder = function(){
-    var _add = function(){
-      //argsArr.push.apply(null,arguments); //error!!!
-      //[].push.apply(argsArr,arguments);
-      //argsArr = argsArr.concat(arguments) // error, get [1,2,3,{}]
-      //argsArr = argsArr.concat([].slice.call(arguments));
-      //argsArr = [].concat.apply(argsArr,arguments);   
-      argsArr = [].concat.apply(argsArr,arguments); // right
-      return _add;
-    }
-    _add.toString=function(){
-      return argsArr.reduce(function(c,p){return c+p;})
-    }
-    return _add;
+    //argsArr.push.apply(null,arguments); //error!!!
+    //[].push.apply(argsArr,arguments);
+    //argsArr = argsArr.concat(arguments) // error, get [1,2,3,{}]
+    //argsArr = argsArr.concat([].slice.call(arguments));
+    //argsArr = [].concat.apply(argsArr,arguments);   
+    argsArr = [].concat.apply(argsArr,arguments); // right
+    return adder;
   }
-  return adder();
+  adder.toString=function(){
+    return argsArr.reduce(function(c,p){return c+p;})
+  }
+  return adder;
 }
 console.log(add(3,3)(9)(9));
 
@@ -59,17 +56,14 @@ function myCurry(fn){
   var argsArr = [].slice.call( arguments);
   argsArr.shift();
   var f = function(){
-    var _f = function(){
-      [].push.apply(argsArr,arguments);
-      return _f;
-    }
-    _f.toString=function(){
-      //return fn(argsArr); // error!!!!!
-      return fn.apply(null,argsArr);
-    }
-    return _f;
+    [].push.apply(argsArr,arguments);
+    return f;
   }
-  return f();
+  f.toString=function(){
+    //return fn(argsArr); // error!!!!!
+    return fn.apply(null,argsArr);
+  }
+  return f;
 }
 console.log(myCurry(fn,1,2)(1)(9)(1),myCurry(fn)(9)(1));
 
