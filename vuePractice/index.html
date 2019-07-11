@@ -5,29 +5,63 @@
         <div id='app'>              
             <div>父子组件通信：来自子组件的input值：{{titleVal}}</div>
             <child-comp :title='titleVal' @title-changed='dosth'></child-comp>
+            <child-comp2 ref='childComp2' pc='pc' :pa='titleVal' pb='pbval' :class='color'></child-comp2>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
         //定义子组件
+        var EventBus=new Vue();
         Vue.component('child-comp', {
             props: ['title'],
-            template: '<input @input="changeVal" type="text" :value="title" />',
+            template: '<div><button @click="clickButton">利用空的vue实例作为中央事件总线</button><input @input="changeVal" type="text" :value="title" /></div>',
             methods:{
+                clickButton(){
+                    EventBus.$emit('click-button','abc')
+                },
                 changeVal(e){
                     this.$emit('title-changed',e.target.value)
                 }
+            }
+        })
+        Vue.component('child-comp2',{
+            template:'<div>this is child-comp2.<span v-bind="$attrs">{{msginfo.msg}}, {{$attrs.pa+$attrs.pb}}</span></div>',
+            data (){
+                return {comp2msg:'beGotByRef'}
+            },
+            //inheritAttrs: false, 
+            //inject:['msg']; //not ok
+            inject:{
+                msginfo:{
+                    default:()=>{}
+                }
+            },
+            created(){
+                console.log(this.$attrs)
             }
         })
         var vm=new Vue({
             el:'#app',
             data:{
                 titleVal:'hello',
+                color:'dark'
+            },
+            provide(){
+                this.msginfo= Vue.observable({msg:'provideExample'});
+                return {msginfo:this.msginfo}
+                
             },
             methods:{
                 dosth(val){
                     this.titleVal=val
                 }
+            },
+            mounted(){
+                EventBus.$on('click-button',val=>{
+                    this.titleVal=val;
+                    this.msginfo.msg='newProvideExample';
+                    console.log(this.$refs.childComp2.comp2msg)
+                })
             }
         })
 
