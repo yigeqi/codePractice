@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css</title>
+</head>
+<style type="text/css">
+	body{
+		width: 90%;
+		margin: 0 auto;
+	}
+	span{
+		font-weight: bolder;
+		color: blue;
+	}
+	.border{
+		border: 1px solid red;
+	}
+	.desp{
+		color: #960e46;
+	}
+	.container{
+		height: 100px;
+		border: 1px solid black;
+		margin-bottom: 20px;
+	}
+	#c1 div{
+		line-height: 100px;
+	}
+	#c2{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#c3{
+		line-height: 100px;
+		text-align: center;
+	}
+	#c3 img{
+		vertical-align: middle;
+	}
+	#c3-1{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#c4{
+		position: relative;
+	}
+	#c4 div{
+	  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); 
+  }
+  #c5{
+  	display: flex;
+  	justify-content: center;
+		align-items: center;
+  }
+  #c6{
+  	display: flex;
+  	justify-content: space-between;
+  }
+  #c6 div{
+  	width: 30%;
+  	border: 1px solid red;
+  }
+  #c7{
+  	display: flex;
+  	padding-right: 20px;
+  }
+  #c7 div{
+  	flex: 1;
+  	margin-left: 20px;
+  	border: 1px solid red;
+  }
+  #c8 div{
+  	height: 100%;
+  	border: 1px solid red;
+  }
+  #c8 div:first-child{
+  	width: 200px;
+  	float: left;
+  }
+  #c8 div:last-child{
+  	margin-left: 200px;
+  }
+  #c9{
+  	display: flex;
+  }
+  #c9 div{
+  	border: 1px solid red;
+  }
+  #c9 div:first-child{
+  	flex-basis: 200px;
+  }
+  #c9 div:last-child{
+  	flex:1;
+  }
+  #c10{
+  	display: flex;
+  }
+  #c10 aside{
+  	flex-basis: 100px;
+  }
+  #c10 main{
+  	flex: 1;
+  }
+</style>
+<body>
+<div class="desp"><span>c1</span>单行文字垂直居中：子元素line-height</div>
+<div class='container' id='c1'>
+	<div>垂直居中单行文字</div>
+</div>
+<div class="desp"><span>c2</span>单行/多行水平垂直居中：flex</div>
+<div class='container' id='c2'>
+	<div>水平垂直居中div</div>
+</div>
+
+<div class="desp"><span>c3</span>图片水平垂直居中：父元素line-height</div>
+<div class='container' id='c3'>
+	<img src='https://cdn.segmentfault.com/v-5d2ffc9a/global/img/user-64.png' />
+</div>
+<div class="desp"><span>c3-1</span>图片水平垂直居中：flex</div>
+<div class='container' id='c3-1'>
+	<img src='https://cdn.segmentfault.com/v-5d2ffc9a/global/img/user-64.png' />
+</div>
+<div class="desp"><span>c4</span>水平垂直居中：relative, absolute</div>
+<div class='container' id='c4'>
+	<div>水平垂直居中div</div>
+</div>
+<div class="desp"><span>c5</span>水平垂直居中：flex</div>
+<div class='container' id='c5'>
+	<div>垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字</div>
+</div>
+<div class="desp"><span>c6</span>多个子元素间隔分布：flex</div>
+<div class='container' id='c6'>
+	<div>111</div>
+	<div>111</div>
+	<div>111</div>
+</div>
+<div class="desp"><span>c7</span>多个子元素间隔分布：flex</div>
+<div class='container' id='c7'>
+	<div>111</div>
+	<div>111</div>
+	<div>111</div>
+</div>
+<div class="desp"><span>c8</span>双栏布局：左栏固定宽度，右栏自适应：左栏float或position:absolute</div>
+<div class='container' id='c8'>
+	<div>111</div>
+	<div>111</div>
+</div>
+<div class="desp"><span>c9</span>双栏布局：左栏固定宽度，右栏自适应：flex</div>
+<div class='container' id='c9'>
+	<div>111</div>
+	<div>111</div>
+</div>
+<div class="desp"><span>c10</span>三栏布局：两边两栏：float或position:absolute</div>
+<div class="desp"><span>c10</span>三栏布局：flex，flex-basis</div>
+<div class='container' id='c10'>
+	<aside class="border">111</aside>
+	<main class="border">111</main>
+	<aside class="border">111</aside>
+</div>
+</body>
+</html>
