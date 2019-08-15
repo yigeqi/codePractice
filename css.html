@@ -6,7 +6,7 @@
 <style type="text/css">
 	body{
 		width: 90%;
-		margin: 0 auto;
+		margin: 0 auto 50px;
 	}
 	span{
 		font-weight: bolder;
@@ -106,6 +106,48 @@
   #c10 main{
   	flex: 1;
   }
+  #c11{
+  	height: auto;
+  	column-count: 3;
+  	column-width: 30px;
+  }
+  #c12{
+  	padding-right: 20px;
+  	overflow: hidden;
+  	height: auto;
+  }
+  #c12 div{
+  	width: 25%;
+  	box-sizing: border-box;
+  	padding-left:20px;
+  	float:left;
+  	background-color: #ccc;
+  	background-clip: content-box;
+  }
+  #c13,#c13-1{
+  	height: auto;
+  }
+  #c13 .float,#c13-1 .float{
+  	float:left;
+  }
+  #c13:after{
+  	clear: both;
+  	content: '';
+  	display: inline-block;
+  }
+  #c13-1{
+  	overflow: auto;
+  }
+  #c14{
+  	width:20%;
+  	height: 0;
+  	padding-bottom:10%;
+  }
+  #c15{
+  	width: 30%;
+  	min-height: 50px;
+  	height: auto;
+  }
 </style>
 <body>
 <div class="desp"><span>c1</span>单行文字垂直居中：子元素line-height</div>
@@ -162,5 +204,32 @@
 	<main class="border">111</main>
 	<aside class="border">111</aside>
 </div>
+<div class="desp"><span>c11</span>css3：column-count,column-gap像报纸一样的多列布局</div>
+<div class='container' id='c11'>
+	<div>垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字</div>
+</div>
+<div class="desp"><span>c12</span>box-sizing:border-box为了保证多个div之间宽度一致</div>
+<div class='container' id='c12'>
+	<div class="border">111</div>
+	<div class="border">111</div>
+	<div class="border">111</div>
+	<div class="border">111</div>
+</div>
+<div class="desp"><span>c13</span>利用clear清除浮动</div>
+<div class='container' id='c13'>
+	<div class='float border'>111</div>
+</div>
+<div class="border">111</div>
+<div class="desp"><span>c13-1</span>利用bfc清除浮动overflow: hidden|auto|scroll</div>
+<div class='container' id='c13-1'>
+	<div class='float border'>111</div>
+</div>
+<div class="border">111</div>
+<div class="desp"><span>c14</span>CSS实现宽度自适应100%，宽高2:1的比例的矩形</div>
+<div>tips: padding和margin的百分数：相对的都是父元素，且不管左右上下相对的都是父元素的宽度的百分比，而不是宽度和高度。
+</div>
+<div id='c14' class="border"></div>
+<div class="desp"><span>c15</span>用一个div模拟textarea的实现(优势：高度可自适应)</div>
+<div id="c15" class="border" contenteditable="true"></div>
 </body>
 </html>
