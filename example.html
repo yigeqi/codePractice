@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>1</title>
+  <style type="text/css">
+    .container{width:84px;height:84px;border-top:1px solid black;border-left:1px solid black;overflow: hidden;margin-bottom: 20px;margin-right:20px;float:left;}
+    .grid{width:20px;height:20px;text-align:center;border-right:1px solid black;border-bottom:1px solid black;float:left;}
+    .red{background: red;}
+  </style>
+</head>
+<body>
+  
+ 
+
+</body>
+<script type="text/javascript">
+function combine0(totalNum,targetNum){
+  const arr=[],result=[];
+  arr.length = totalNum;
+  arr.fill(1,0,targetNum).fill(0,targetNum);
+  result.push([...arr]);
+  for(var i=0;i<totalNum-1;i++){
+    // if(/111/.test(arr.join(''))){
+    //   i=0;
+    //   continue;
+    // }
+    if(arr[i]===1&&arr[i+1]===0){
+      //互换1，0
+      arr[i]=0;
+      arr[i+1]=1;
+      //如果换后的0的左边的1全部移到最左边
+      //确保arr从0--i-1位数字里有没有1是在0的后面的
+      var partArr=arr.slice(0,i).sort((a,b)=>b-a);
+      arr.splice(0,i,...partArr);
+
+      // /111/.test(arr.join(''))||
+      result.push([...arr]);
+      i=-1;
+      // if(result.length>442616536.8){
+      //   break;
+      // }
+    }
+  }
+  console.log(result.length)
+  return result;
+}
+
+//在数组data里返回长度为target_num的各种组合情况[[],[]...] ----very slow
+function combine(data0,step0,select_data0,target_num0){
+  var result=[];
+  (function f(data,step,select_data,target_num){
+    if(select_data.length==target_num){
+      result.push([...select_data]);
+      return;
+    }
+    if(step>=data.length){
+      return result;
+    }
+    select_data.push(data[step])
+    f(data,step+1,select_data,target_num);
+    select_data.pop();
+    f(data,step+1,select_data,target_num);
+  })(data0,step0,select_data0,target_num0)
+  return result;
+}
+//判断m,n两个数字是否在同一行或同一列或斜线上，是的话，返回true
+function verify(m,n,size){
+  function getXY(num){
+    return {x:Math.ceil(num/size)-1,y:num%size===0?3:num%size-1}
+  }
+  const obj1=getXY(m);
+  const obj2=getXY(n);
+  if(obj1.x===obj2.x||obj1.y===obj2.y
+    ||obj1.x+obj1.y===obj2.x+obj2.y
+    ||obj1.x-obj1.y===obj2.x-obj2.y)
+    return true;   
+  return false;
+}
+//把[0,1,1,0,1,0,0,1]变成[2,3,5,8]
+function change(arr){
+  const result = [];
+  arr.forEach((item,index)=>{
+    if(item===1){
+      result.push(index+1)
+    }
+  });
+  return result
+}
+//把数组arr=[[],[]...]里不符合条件的去掉
+function filter(arr){
+  for(let i=arr.length-1;i>=0;i--){
+    arr[i] = change(arr[i]);
+    if(check(arr[i]) ){
+      arr.splice(i,1)
+    }else{
+      console.log(arr[i])
+    }
+  }
+  return arr;
+}
+//判断数组arr=[...]是否符合条件
+function check(arr){
+  for(let i=0;i<arr.length-1;i++){
+    for(let j=i+1;j<arr.length;j++){
+      if(verify(arr[i],arr[j],arr.length)){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function draw(arr){
+  var size =  arr.length;
+  var container=document.createElement('div');
+  container.setAttribute('class','container');
+  for(let i=1;i<=size*size;i++){
+    var div=document.createElement('div');
+    div.setAttribute('class',arr.indexOf(i)>=0?'grid red':'grid');
+    div.appendChild(document.createTextNode(i+''));
+    container.appendChild(div);
+  }
+  return container;
+}
+function dowhole(size){
+  var data=[]
+  for(let i=1;i<=size*size;i++){
+    data.push(i);
+  }
+  var result1=combine0(size*size,size);
+  console.log(result1.length);
+  var result2=filter(result1);
+  if(result2.length<20){
+    console.log(result2)
+  }
+  console.log(result2.length);
+  var fragment = document.createDocumentFragment();
+  result2.forEach(item=>{
+    fragment.appendChild(draw(item));
+  })
+  document.body.appendChild(fragment);
+}
+var a1=new Date();
+var size=4;
+// combine0(size*size,size)
+dowhole(size);
+console.log((new Date()-a1)/1000)
+</script>
+</html>

@@ -31,19 +31,8 @@
 		justify-content: center;
 		align-items: center;
 	}
-	#c3{
-		line-height: 100px;
-		text-align: center;
-	}
-	#c3 img{
-		vertical-align: middle;
-	}
-	#c3-1{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	#c4{
+	 
+ 	#c4{
 		position: relative;
 	}
 	#c4 div{
@@ -52,12 +41,7 @@
     left: 50%;
     transform: translate(-50%,-50%); 
   }
-  #c5{
-  	display: flex;
-  	justify-content: center;
-		align-items: center;
-  }
-  #c6{
+   #c6{
   	display: flex;
   	justify-content: space-between;
   }
@@ -74,17 +58,16 @@
   	margin-left: 20px;
   	border: 1px solid red;
   }
-  #c8 div{
-  	height: 100%;
-  	border: 1px solid red;
-  }
+   
+  
   #c8 div:first-child{
   	width: 200px;
   	float: left;
   }
-  #c8 div:last-child{
+  #c8 div:nth-child(2){
   	margin-left: 200px;
   }
+
   #c9{
   	display: flex;
   }
@@ -158,22 +141,9 @@
 <div class='container' id='c2'>
 	<div>水平垂直居中div</div>
 </div>
-
-<div class="desp"><span>c3</span>图片水平垂直居中：父元素line-height</div>
-<div class='container' id='c3'>
-	<img src='https://cdn.segmentfault.com/v-5d2ffc9a/global/img/user-64.png' />
-</div>
-<div class="desp"><span>c3-1</span>图片水平垂直居中：flex</div>
-<div class='container' id='c3-1'>
-	<img src='https://cdn.segmentfault.com/v-5d2ffc9a/global/img/user-64.png' />
-</div>
-<div class="desp"><span>c4</span>水平垂直居中：relative, absolute</div>
+<div class="desp"><span>c4</span>水平垂直居中：relative, absolute，transform</div>
 <div class='container' id='c4'>
 	<div>水平垂直居中div</div>
-</div>
-<div class="desp"><span>c5</span>水平垂直居中：flex</div>
-<div class='container' id='c5'>
-	<div>垂直居中文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字文字垂直居中单行文字文字垂直居中单行文字垂直居中单行文字垂直居中单行文字垂直居中单行文字</div>
 </div>
 <div class="desp"><span>c6</span>多个子元素间隔分布：flex</div>
 <div class='container' id='c6'>
@@ -188,9 +158,10 @@
 	<div>111</div>
 </div>
 <div class="desp"><span>c8</span>双栏布局：左栏固定宽度，右栏自适应：左栏float或position:absolute</div>
-<div class='container' id='c8'>
+<div class='border' id='c8'>
 	<div>111</div>
 	<div>111</div>
+  <div>111</div>
 </div>
 <div class="desp"><span>c9</span>双栏布局：左栏固定宽度，右栏自适应：flex</div>
 <div class='container' id='c9'>
@@ -231,5 +202,53 @@
 <div id='c14' class="border"></div>
 <div class="desp"><span>c15</span>用一个div模拟textarea的实现(优势：高度可自适应)</div>
 <div id="c15" class="border" contenteditable="true"></div>
+<div class="desp"><span>c16</span>用flex实现骰子布局（一个点可以任意出现在3行3列的9个点的位置）自己在chrome devtools里试试吧</div>
+<style type="text/css">
+  .flexC{display:flex;width: 100px;}
+  .dot{width:20px;height: 20px;background: black;border-radius: 100%;}
+</style>
+<div class='container flexC'>
+  <div class='dot'></div>
+</div>
+<style type="text/css">
+  #c16{
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
+<div class='container flexC' id='c16'>
+  <div class='dot'></div>  <div class='dot'></div>
+</div>
+<div class='container flexC' style='flex-direction: column;justify-content: space-between;'>
+  <div class='dot'></div>  <div style="align-self: center" class='dot'></div><div style="align-self: flex-end;" class='dot'></div>
+</div>
+<div class='container flexC'>
+  <div style="flex:2" class="border">1/2</div>
+  <div style="flex:1" class="border">1/4</div>
+  <div style="flex:1" class="border">1/4</div>
+</div>
+<div class="desp">圣杯布局</div>
+<div >
+  <header class="border">.header..</header>
+  <div style="display: flex;" class="border">
+    <main style="flex: 1;height: 50px;" class="border">.main..</main>
+    <nav style="order:-1;flex-basis: 100px;" class="border">..nav.</nav>
+    <aside style="flex-basis: 100px;" class="border">.aside..</aside>
+  </div>
+  <footer class="border">..footer.</footer>
+</div>
+<div class="desp">图片的悬挂式布局</div>
+<div class="border" style="display: flex;align-items: flex-start;"><img src="https://cdn.segmentfault.com/v-5d2ffc9a/global/img/user-64.png"><div>ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss ssss ssssss sssss </div></div>
+<div class="deps">在背景上加一层蒙板实现透明的小圆形,主要利用很大的border</div>
+<style type="text/css">
+  #c17 {background: url(https://img.alicdn.com/tfs/TB11CSkaMFY.1VjSZFnXXcFHXXa-990-550.jpg_1080x1800Q90s50.jpg);width: 200px;height: 200px;position: relative;overflow: hidden;}
+#c17 div{
+    position:absolute;top:-100px;left: -100px;
+    width:50px; height:50px;
+    border-radius: 50%;
+    border: 200px solid rgba(0,0,0,.5);
+}
+</style>
+<div id='c17'><div></div></div>
 </body>
 </html>

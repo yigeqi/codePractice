@@ -5,7 +5,8 @@
 	<script type="text/javascript" src="./design_mode.js"></script>
 	<script defer="defer" async type="text/javascript" src="./1.js"></script>
 </head>
-<body>
+<body style="display: flex;flex-direction: column;">
+  <div>
 	<p>example of observer-mode:</br>
 	每次点击btn-a,就在下面显示总的点击次数</p>
 	<div>
@@ -29,9 +30,74 @@ hello inner → hello innermost → hello outer</div>
   </div>
 </div>
 
-<div id='imgContainer1' >
+<div id='imgContainer1' style="height: 100px;overflow: hidden;">
  
 </div>
-
+</div>
+<div style="align-self: flex-end; border: 1px solid red;" id='test'>sssss</div>
 </body>
+<script type="text/javascript">
+function combine(data0,step0,select_data0,target_num0){
+  var result=[];
+  (function f(data,step,select_data,target_num){
+    if(select_data.length==target_num){
+      result.push([...select_data]);
+      return;
+    }
+    if(step>=data.length){
+      return result;
+    }
+    select_data.push(data[step])
+    f(data,step+1,select_data,target_num);
+    select_data.pop();
+    f(data,step+1,select_data,target_num);
+  })(data0,step0,select_data0,target_num0)
+  return result;
+}
+var data=[],size=4
+for(let i=1;i<=size*size;i++){
+  data.push(i)
+}
+var result1=combine(data,0,[],size);
+console.log(result1,result1.length);
+function verify(m,n){
+  function getXY(num){
+    return {x:Math.ceil(num/size)-1,y:num%size===0?3:num%size-1}
+  }
+  const obj1=getXY(m);
+  const obj2=getXY(n);
+  if(obj1.x===obj2.x||obj1.y===obj2.y
+    ||obj1.x+obj1.y===obj2.x+obj2.y
+    ||obj1.x-obj1.y===obj2.x-obj2.y)
+    return true;   
+  return false;
+}
+
+function filter(arr){
+  for(let i=arr.length-1;i>=0;i--){
+    if(check(arr[i]) ){
+      arr.splice(i,1)
+    }
+  }
+  return arr;
+}
+function check(arr){
+  for(let i=0;i<arr.length-1;i++){
+    for(let j=i+1;j<arr.length;j++){
+      if(verify(arr[i],arr[j])){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+var result2=filter(result1);
+console.log(result2,result2.length);
+document.getElementById('test').addEventListener('click',function(e){
+// var test = filter([[3,5,12,14]]);
+// console.log(
+// console.log(check([3,5,12,14]))
+
+});
+</script>
 </html>

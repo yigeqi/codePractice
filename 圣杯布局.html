@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+	<title>圣杯布局（固定底部栏）</title>
+</head>
+<body style="height: 100%;display: flex;flex-direction: column;margin: 0;">
+	  <header style="border: 1px solid red;">.header.当内容一栏高度很短时，也能把footer固定在底部.高度很高时，footer也在自动往后</header>
+	  <div style="display: flex;flex:1;border: 1px solid red;">
+	    <main style="flex: 1;">.main<form style="display: flex;width: 50%;border: 1px solid red;">
+  		<input style="flex:1;" type="email" name="email" placeholder="宽度占当前行的所以剩余宽度">
+  		<button style="font-size: 20px;" type="submit">Send</button>
+	</form>
+	<p><strong>弹性布局默认不改变项目的宽度，但是它默认改变项目的高度。如果项目没有显式指定高度，就将占据容器的所有高度。 </strong>本例中，按钮变高了，导致表单元素也变高了，使得输入框的高度自动拉伸了。而且默认的input和button
+	之前会有3px-4px的间隔，用display:flex;后就没有间隔了。</p></main>
+	    <nav style="order:-1;flex-basis: 100px;" class="border">..nav.</nav>
+	    <aside style="flex-basis: 100px;" class="border">.aside..</aside>
+	  </div>
+	  <footer style="border: 1px solid;red;">..footer.</footer>
+</body>
+</html>
